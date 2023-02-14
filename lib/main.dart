@@ -49,6 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II"];
 
   void _incrementCounter() {
     setState(() {
@@ -63,36 +64,31 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
     return MaterialApp(
-        // theme of the app
         theme: ThemeData(primarySwatch: Colors.orange),
         debugShowCheckedModeBanner: false,
         home: Scaffold(
-          // appbat sets the title of the app
           appBar: AppBar(
-            title: Text('GGrade'),
+            title: const Text('GGrade'),
             centerTitle: true,
           ),
-          // Decoratedbox which takes the
-          // decoration and child property
           body: DecoratedBox(
-            // BoxDecoration takes the image
             decoration: BoxDecoration(
-              // Image set to backgroud of the body
               image: DecorationImage(
-                  image: AssetImage("assets/background.png"),
+                  image: const AssetImage("assets/background.png"),
                     fit: BoxFit.cover,
                     colorFilter: ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.color),
               )
             ),
-            child: Center(
-              // flutter logo that will shown
+            child: ListView(
+              children: games.map((strone){
+                return Container(
+                  margin: const EdgeInsets.all(5),
+                  padding: const EdgeInsets.all(15),
+                  color: Colors.orange[100],
+                  child: Text(strone),
+                );
+              }).toList(),
             ),
           ),
       ));
