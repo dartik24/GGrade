@@ -49,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II"];
+  List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II", "Kerbal Space Program II"];
 
   void _incrementCounter() {
     setState(() {
@@ -69,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
         debugShowCheckedModeBanner: false,
         home: Scaffold(
           appBar: AppBar(
-            title: const Text('GGrade'),
+            title: const Text('Library'),
             centerTitle: true,
           ),
           body: DecoratedBox(
