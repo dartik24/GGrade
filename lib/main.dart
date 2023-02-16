@@ -13,16 +13,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
-        primarySwatch: Colors.orange,
+        primarySwatch: Colors.orange
       ),
       home: const MyHomePage(title: 'Library'),
     );
@@ -73,6 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
             centerTitle: true,
           ),
           body: DecoratedBox(
+
             decoration: BoxDecoration(
               image: DecorationImage(
                   image: const AssetImage("assets/background.png"),
@@ -80,15 +72,31 @@ class _MyHomePageState extends State<MyHomePage> {
                     colorFilter: ColorFilter.mode(Colors.grey.withOpacity(0.5), BlendMode.color),
               )
             ),
-            child: ListView(
-              children: games.map((strone){
-                return Container(
-                  margin: const EdgeInsets.all(5),
-                  padding: const EdgeInsets.all(15),
-                  color: Colors.orange[100],
-                  child: Text(strone),
+            child: ListView.builder(
+              itemCount: games.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  color: Colors.orange.withOpacity(0.75),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0),
+                    ),
+                  borderOnForeground: true,
+                  elevation: 5,
+                  margin: const EdgeInsets.fromLTRB(5,5,5,5),
+                  child: ListTile(
+                    leading: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(10.0)),
+                      child: Image.asset("assets/OT.png"),
+                    ),
+                    title: Text("${games[index]}", textAlign: TextAlign.center,),
+                    subtitle: Column(
+                      children: <Widget>[
+                        FloatingActionButton.large(child: Text("Score"),onPressed: (){})
+                      ],
+                    )
+                  )
                 );
-              }).toList(),
+              },
             ),
           ),
       ));
