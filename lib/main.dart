@@ -23,15 +23,6 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
   final String title;
 
   @override
@@ -41,14 +32,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
   List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II", "Kerbal Space Program II"];
+  List scores = [7,9,8,7];
+  List img = [Image.asset('assets/AH.jpg'),Image.asset('assets/hgw.jpg'),Image.asset('assets/OT.jpg'),Image.asset('assets/KSP.jpg'),];
 
   void _incrementCounter() {
     setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
       _counter++;
     });
   }
@@ -86,12 +74,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListTile(
                     leading: ClipRRect(
                       borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                      child: Image.asset("assets/OT.png"),
+                      child: img[index],
                     ),
-                    title: Text("${games[index]}", textAlign: TextAlign.center,),
+                    title: Text("${games[index]}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Column(
                       children: <Widget>[
-                        FloatingActionButton.large(child: Text("Score"),onPressed: (){})
+                        FloatingActionButton.large(child: Text("${scores[index]}/10", style: TextStyle(fontWeight: FontWeight.bold),),onPressed: (){})
                       ],
                     )
                   )
