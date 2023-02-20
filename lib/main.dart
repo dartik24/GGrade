@@ -67,6 +67,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 return Card(
                   color: Colors.orange.withOpacity(0.75),
                   shape: RoundedRectangleBorder(
+                      side: BorderSide(color: Colors.black),
                       borderRadius: BorderRadius.circular(15.0),
                     ),
                   borderOnForeground: true,
@@ -80,7 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     title: Text("${games[index]}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
                     subtitle: Column(
                       children: <Widget>[
-                        FloatingActionButton.large( heroTag: "$index",child: Text("${find_score(index).toStringAsFixed(1)}/10", style: const TextStyle(fontWeight: FontWeight.bold),),onPressed: (){
+                        FloatingActionButton.large( heroTag: "$index",shape: const StadiumBorder(side: BorderSide(color: Colors.black, width: 1)) ,child: Text("${find_score(index).toStringAsFixed(1)}/10",style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25), ),onPressed: (){
                           Navigator.push(context, MaterialPageRoute(builder: (context) => MyScorePage(title: "${games[index]}"),));
                         })
                       ],
@@ -145,27 +146,28 @@ class _MyScorePageState extends State<MyScorePage> {
                     )
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                       Container(
-                          margin: EdgeInsets.only(left: 10, right: 10, top: 10),
+                          margin: EdgeInsets.only(left: 10, right: 10, top: 20),
                           decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black, width: 2),
                             boxShadow: [
                               BoxShadow(color: Colors.black.withOpacity(0.25),
                                 blurRadius: 5,
                                 spreadRadius: 5,
                                 offset: const Offset(2.0, 2.0),)
                             ],
-                            borderRadius: const BorderRadius.all(Radius.circular(15)),
                           ),
                           child: Image.asset("${img[fullRun(title)]}")),
                       Flexible(child: Container(
                         width: 25,
                         height: 25,
                         alignment: Alignment.center,
-                        margin: EdgeInsets.only(left: 10, right: 10),
+                        margin: EdgeInsets.only(left: 10, right: 10, top: 20),
                         decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 1),
                           boxShadow: [
                             BoxShadow(color: Colors.black.withOpacity(0.25),
                               blurRadius: 5,
@@ -183,6 +185,7 @@ class _MyScorePageState extends State<MyScorePage> {
                         alignment: Alignment.center,
                         margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                         decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 1),
                           boxShadow: [
                             BoxShadow(color: Colors.black.withOpacity(0.75),
                               blurRadius: 5,
@@ -201,6 +204,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.25),
                             blurRadius: 5,
@@ -218,6 +222,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.75),
                             blurRadius: 5,
@@ -236,6 +241,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.25),
                             blurRadius: 5,
@@ -253,6 +259,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.75),
                             blurRadius: 5,
@@ -271,6 +278,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.25),
                             blurRadius: 5,
@@ -288,6 +296,7 @@ class _MyScorePageState extends State<MyScorePage> {
                       alignment: Alignment.center,
                       margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
                       decoration: BoxDecoration(
+                        border: Border.all(color: Colors.black, width: 1),
                         boxShadow: [
                           BoxShadow(color: Colors.black.withOpacity(0.75),
                             blurRadius: 5,
