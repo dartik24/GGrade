@@ -78,7 +78,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
                       child: img[index],
                     ),
-                    title: Text("${games[index]}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
+                    title: Text("${games[index]}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                     subtitle: Column(
                       children: <Widget>[
                         FloatingActionButton.large( heroTag: "$index",shape: const StadiumBorder(side: BorderSide(color: Colors.black, width: 1)) ,child: Text("${find_score(index).toStringAsFixed(1)}/10",style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25), ),onPressed: (){
