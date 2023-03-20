@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "303560604646",
+    "project_id": "ggradedb",
+    "storage_bucket": "ggradedb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:303560604646:android:12041cc38140ba9ba9b427",
+        "android_client_info": {
+          "package_name": "com.example.ggrade_proj"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "303560604646-gq0mojgrkhf2ugipufc6s1hdtn1db9mn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsM5oWAniFSSkM3N53MwPFK7d-CvU2cog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "303560604646-gq0mojgrkhf2ugipufc6s1hdtn1db9mn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

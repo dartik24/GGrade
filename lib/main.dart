@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -31,16 +36,73 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II", "Kerbal Space Program II"];
-  List img = [Image.asset('assets/AH.jpg'),Image.asset('assets/hgw.jpg'),Image.asset('assets/OT.jpg'),Image.asset('assets/KSP.jpg'),];
-  List dph = [5,5,8,10];
-  List perf = [7,6,9,7];
-  List user = [7,8,7,9];
+  List games = [];
+  List img = [];
+  List dph = [];
+  List perf = [];
+  List user = [];
+
+  @override
+  void initState()
+  {
+    super.initState();
+    _activateListeners();
+    _activateListeners2();
+    _activateListeners3();
+  }
+
+  Future<void> _activateListeners() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Name");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      games.add(value);
+    });
+    DatabaseReference ref2 = FirebaseDatabase.instance.ref("dph");
+    DatabaseEvent event2 = await ref2.once();
+
+    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
+    map2.forEach((key, value) {
+      dph.add(value);
+    });
+    return;
+  }
+
+  Future<void> _activateListeners2() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("perf");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      perf.add(value);
+    });
+    DatabaseReference ref2 = FirebaseDatabase.instance.ref("user");
+    DatabaseEvent event2 = await ref2.once();
+
+    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
+    map2.forEach((key, value) {
+      user.add(value);
+    });
+    return;
+  }
+
+  Future<void> _activateListeners3() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("img");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      img.add(value);
+    });
+  }
+
 
   double find_score(int index){
     double res = (dph[index] + perf[index] + user[index])/3;
     return res;
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,13 +138,13 @@ class _MyHomePageState extends State<MyHomePage> {
                   child: ListTile(
                     leading: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-                      child: img[index],
+                      child: Image.network(img[index]),
                     ),
                     title: Text("${games[index]}", textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
                     subtitle: Column(
                       children: <Widget>[
                         FloatingActionButton.large( heroTag: "$index",shape: const StadiumBorder(side: BorderSide(color: Colors.black, width: 1)) ,child: Text("${find_score(index).toStringAsFixed(1)}/10",style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 25), ),onPressed: (){
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyScorePage(title: "${games[index]}"),));
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => MyScorePage(title: "${games[index]}", games: games, dph: dph, perf: perf, user: user, img: img),));
                         })
                       ],
                     )
@@ -96,22 +158,27 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class MyScorePage extends StatefulWidget {
-  const MyScorePage({super.key, required this.title});
-
+  const MyScorePage({super.key, required this.title, required this.games, required this.dph, required this.perf, required this.user, required this.img});
   final String title;
+  final List games;
+  final List dph;
+  final List perf;
+  final List user;
+  final List img;
 
   @override
-  State<MyScorePage> createState() => _MyScorePageState(title);
+  State<MyScorePage> createState() => _MyScorePageState(title, games, dph, perf, user, img);
 }
 
 class _MyScorePageState extends State<MyScorePage> {
   String title;
-  _MyScorePageState(this.title);
-  List games = ["Atomic Heart", "Hogwarts Legacy", "Octopath II", "Kerbal Space Program II"];
-  List img = ["assets/AH.jpg" , "assets/hgw.jpg", "assets/OT.jpg", "assets/KSP.jpg"];
-  List dph = [5,5,8,10];
-  List perf = [7,6,9,7];
-  List user = [7,8,7,9];
+  List games;
+  List dph;
+  List perf;
+  List user;
+  List img;
+  _MyScorePageState(this.title, this.games, this.dph, this.perf, this.user, this.img);
+
 
   double find_score(int index){
     double res = (dph[index] + perf[index] + user[index])/3;
@@ -134,6 +201,7 @@ class _MyScorePageState extends State<MyScorePage> {
           debugShowCheckedModeBanner: false,
           home: Scaffold(
             appBar: AppBar(
+              leading: BackButton(onPressed: () => Navigator.of(context).pop(),),
               title: Text(title),
               centerTitle: true,
             ),
@@ -160,7 +228,7 @@ class _MyScorePageState extends State<MyScorePage> {
                                 offset: const Offset(2.0, 2.0),)
                             ],
                           ),
-                          child: Image.asset("${img[fullRun(title)]}")),
+                          child: Image.network("${img[fullRun(title)]}")),
                       Flexible(child: Container(
                         width: 25,
                         height: 25,
