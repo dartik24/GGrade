@@ -3,10 +3,66 @@ import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+List games = [];
+List img = [];
+List dph = [];
+List perf = [];
+List user = [];
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+
+  Future<void> _activateListeners() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("Name");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      games.add(value);
+    });
+    DatabaseReference ref2 = FirebaseDatabase.instance.ref("dph");
+    DatabaseEvent event2 = await ref2.once();
+
+    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
+    map2.forEach((key, value) {
+      dph.add(value);
+    });
+    return;
+  }
+
+
+  Future<void> _activateListeners2() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("perf");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      perf.add(value);
+    });
+    DatabaseReference ref2 = FirebaseDatabase.instance.ref("user");
+    DatabaseEvent event2 = await ref2.once();
+
+    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
+    map2.forEach((key, value) {
+      user.add(value);
+    });
+    return;
+  }
+
+  Future<void> _activateListeners3() async{
+    DatabaseReference ref = FirebaseDatabase.instance.ref("img");
+    DatabaseEvent event = await ref.once();
+
+    final map = event.snapshot.value as Map<dynamic, dynamic>;
+    map.forEach((key, value) {
+      img.add(value);
+    });
+    return;
+  }
+  await _activateListeners();
+  await _activateListeners2();
+  await _activateListeners3();
   runApp(const MyApp());
 }
 
@@ -36,65 +92,10 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List games = [];
-  List img = [];
-  List dph = [];
-  List perf = [];
-  List user = [];
-
   @override
   void initState()
   {
     super.initState();
-    _activateListeners();
-    _activateListeners2();
-    _activateListeners3();
-  }
-
-  Future<void> _activateListeners() async{
-    DatabaseReference ref = FirebaseDatabase.instance.ref("Name");
-    DatabaseEvent event = await ref.once();
-
-    final map = event.snapshot.value as Map<dynamic, dynamic>;
-    map.forEach((key, value) {
-      games.add(value);
-    });
-    DatabaseReference ref2 = FirebaseDatabase.instance.ref("dph");
-    DatabaseEvent event2 = await ref2.once();
-
-    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
-    map2.forEach((key, value) {
-      dph.add(value);
-    });
-    return;
-  }
-
-  Future<void> _activateListeners2() async{
-    DatabaseReference ref = FirebaseDatabase.instance.ref("perf");
-    DatabaseEvent event = await ref.once();
-
-    final map = event.snapshot.value as Map<dynamic, dynamic>;
-    map.forEach((key, value) {
-      perf.add(value);
-    });
-    DatabaseReference ref2 = FirebaseDatabase.instance.ref("user");
-    DatabaseEvent event2 = await ref2.once();
-
-    final map2 = event2.snapshot.value as Map<dynamic, dynamic>;
-    map2.forEach((key, value) {
-      user.add(value);
-    });
-    return;
-  }
-
-  Future<void> _activateListeners3() async{
-    DatabaseReference ref = FirebaseDatabase.instance.ref("img");
-    DatabaseEvent event = await ref.once();
-
-    final map = event.snapshot.value as Map<dynamic, dynamic>;
-    map.forEach((key, value) {
-      img.add(value);
-    });
   }
 
 
